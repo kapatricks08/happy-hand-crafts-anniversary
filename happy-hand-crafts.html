@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Anniversary</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: 
+            /* #0097A7; */
+            /* #006A7F; */
+            #0a192f;
+            /* #00B5E2 */
+            color: #e6f1ff;
+            scroll-behavior: smooth;
+        }
+        
+        #message {
+    perspective: 1000px; /* Enables 3D effect */
+}
+
+/* Envelope container */
+/* Envelope container */
+.envelope-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.envelope {
+    background-image: url('image-asset/envelop-cover.png');
+    background-size:contain;
+    background-position: center;
+    
+ 
+    /* background-position: center; */
+    background-repeat: no-repeat;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transition: all 0.5s ease;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    width: 100%;
+    margin: 0 auto;
+    transform: scale(0.8);
+    height: 400px; /* Fixed height */
+    overflow: hidden;
+}
+
+.letter {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.letter-content {
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    flex-grow: 1;
+    padding-right: 8px; /* Prevents text from touching scrollbar */
+    /* Custom scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: #f9a8d4 #fce7f3;
+}
+
+/* For Webkit browsers */
+.letter-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.letter-content::-webkit-scrollbar-track {
+    background: #fce7f3;
+    border-radius: 10px;
+}
+
+.letter-content::-webkit-scrollbar-thumb {
+    background-color: #f9a8d4;
+    border-radius: 10px;
+}
+
+/* Animation when content overflows */
+@keyframes fadeScroll {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+.letter-content:hover {
+    animation: fadeScroll 2s ease-in-out infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .envelope {
+        height: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    .envelope {
+        height: 300px;
+    }
+}
+
+.envelope:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+      visibility: hidden;
+    background: #e7b2c3; /* Slightly darker color for the flap */
+    clip-path: polygon(0 0, 50% 50%, 100% 0); /* Creates the triangle shape */
+    transform-origin: top center;
+    transform: rotateX(0deg);
+    transition: transform 0.5s ease;
+    z-index: 3;
+}
+.envelope.open:before {
+    transform: rotateX(180deg);
+}
+
+
+
+/* Envelope expands when open */
+.envelope.open {
+    transform: scale(1); /* Enlarge the envelope when opened */
+}
+
+/* Letter inside the envelope (Initially hidden) */
+.envelope .letter {
+    background: white;
+    color: #333;
+    padding: 30px;
+    transform: translateY(0);
+    transition: all 0.5s ease;
+    opacity: 0; /* Initially hidden */
+    pointer-events: none; /* Prevent interaction when hidden */
+    z-index: 1;
+    margin: 0;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+/* Show letter when the envelope is open */
+.envelope.open .letter {
+    opacity: 1; /* Reveal the letter */
+    pointer-events: auto; /* Enable interaction when shown */
+    transform: translateY(0); /* Slide the letter into view */
+}
+
+/* Optional: For the text styling */
+.cursive {
+    font-family: 'Pacifico', cursive;
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+    .envelope {
+        max-width: 90%; /* Reduce envelope size for mobile */
+        transform: scale(0.9); /* Reduce size slightly */
+    }
+
+    .envelope:before {
+        height: 50%; /* Keep flap proportionate on mobile */
+    }
+
+    .envelope .letter {
+        padding: 20px; /* Reduce padding for mobile */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .envelope {
+        max-width: 100%;
+        transform: scale(1); /* Remove scaling at very small sizes */
+    }
+
+    .envelope .letter {
+        padding: 15px; /* Further reduce padding for very small screens */
+    }
+}
+        
+        .ship {
+    position: absolute;
+    bottom: -50px;
+    left: -100px;
+    width: 100px;
+    height: 100px;
+                background-image: url('image-asset/boat.png');
+
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: all 1s ease;
+    z-index: 0;
+    animation: float 4s ease-in-out infinite; /* Floating effect */
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+        
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%232d3748" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%232d3748" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%232d3748"/></svg>');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        
+        .section {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .photo-slider {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .photo-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .photo-slide.active {
+            opacity: 1;
+        }
+        
+        .video-container {
+    position: relative;
+    overflow: hidden; /* Prevent overflow, so the video fits nicely */
+}
+
+/* For the video element */
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the video covers the entire container */
+}
+
+/* For the iframe (YouTube or other embedded content) */
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the iframe content fits */
+}
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+         /* Custom animations */
+        /* Custom animations */
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 3s linear infinite;
+        }
+        
+        @keyframes float-note {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(20deg); opacity: 0; }
+        }
+        
+        .music-note {
+            position: absolute;
+            font-size: 1.2rem;
+            animation: float-note 2s ease-out forwards;
+            color: #ec4899; /* Pink-500 */
+        }
+
+        .animate-fadeIn {
+        animation: fadeIn 1.5s ease-out;
+    }
+    
+    .animate-scaleIn {
+        animation: scaleIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .animate-bounce {
+        animation: bounce 2s infinite;
+    }
+    
+    .animate-pulse {
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    @keyframes scaleIn {
+        from { transform: scale(0.8); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+    
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+
+    /* Timeline styles */
+    .timeline-container {
+            min-height: 600px;
+        }
+        
+        .year-bubble {
+            box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .year-bubble:hover {
+            box-shadow: 0 0 0 8px rgba(236, 72, 153, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .story-card {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Mobile timeline item */
+        @media (max-width: 767px) {
+            .timeline-item {
+                margin-bottom: 2rem;
+            }
+            
+            .year-bubble {
+                margin: 0 auto 1rem;
+            }
+        }
+        /* Add these new styles */
+        .timeline-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .timeline-nav button {
+            background-color: #db2777;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-nav button:hover {
+            background-color: #9d174d;
+            transform: scale(1.1);
+        }
+        
+        .timeline-nav button:disabled {
+            background-color: #6b7280;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .current-year {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #f9a8d4;
+            margin: 0 1rem;
+        }
+
+        /* Mobile-specific styles */
+        @media (min-width: 768px) {
+            .mobile-timeline {
+                display: none !important;
+            }
+        }
+        
+        .mobile-timeline {
+            width: 100%;
+            padding: 20px;
+        }
+        
+        .year-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .nav-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #db2777;
+            color: white;
+            border: none;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-button:disabled {
+            background: #6b7280;
+            opacity: 0.5;
+        }
+        
+        .current-year {
+            font-size: 24px;
+            font-weight: bold;
+            color: #f9a8d4;
+        }
+        
+        .story-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            min-height: 300px;
+        }
+        
+        .story-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(219, 39, 119, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<div id="anniversary-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 transition-opacity duration-1000 animate-fadeIn">
+    <div class="relative bg-gradient-to-br from-pink-100 to-purple-100 rounded-3xl p-8 max-w-md mx-4 shadow-2xl animate-scaleIn">
+        <!-- Heart close button -->
+        <button id="close-modal" class="absolute -top-4 -right-4 bg-pink-500 hover:bg-pink-600 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg transform hover:scale-110 transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+        </button>
+        
+        <!-- Message content -->
+        <div class="text-center">
+            <h2 class="text-3xl font-bold text-pink-600 mb-4 animate-bounce">Hello Lovers!</h2>
+            <p class="text-xl text-purple-800 mb-6 leading-relaxed">
+                Happy Anniversary! ✨<br>
+                May this special day be filled with love, laughter,<br> 
+                and beautiful memories that last forever.<br>
+                Thank you for letting us be part of your journey!
+            </p>
+            
+            <div class="flex flex-col items-center mt-6">
+                <img src="image-asset/hhc-logo.png" alt="Happy Hand Crafts Logo" class="h-16 mb-4 animate-pulse">
+                <p class="text-lg font-semibold text-pink-700">Happy Hand Crafts</p>
+            </div>
+        </div>
+    </div>
+</div>
+<body>
+
+
+   <!-- Music Player -->
+   <div class="fixed bottom-6 left-6 z-50">
+    <div class="relative group">
+        <!-- Vinyl Disc (Initially paused) -->
+        <div id="vinylDisc" class="w-16 h-16 rounded-full bg-gray-900 border-4 border-gray-700 flex items-center justify-center shadow-xl relative overflow-hidden">
+            <!-- Vinyl grooves -->
+            <div class="absolute inset-0 rounded-full border-2 border-gray-600" style="width: 90%; height: 90%; margin: 5%"></div>
+            <div class="absolute inset-0 rounded-full border-2 border-gray-600" style="width: 80%; height: 80%; margin: 10%"></div>
+            <div class="absolute inset-0 rounded-full border-2 border-gray-600" style="width: 70%; height: 70%; margin: 15%"></div>
+            
+            <!-- Center label -->
+            <div class="w-8 h-8 rounded-full bg-pink-500 flex items-center justify-center z-10">
+                <div class="w-2 h-2 rounded-full bg-white"></div>
+            </div>
+        </div>
+        
+        <!-- Play Button (Initially shows play icon) -->
+        <button id="musicToggle" class="absolute -top-2 -right-2 w-10 h-10 rounded-full bg-pink-600 hover:bg-pink-700 text-white flex items-center justify-center shadow-lg transition-all duration-300 transform hover:scale-110 opacity-100">
+            <i class="fas fa-play text-sm" id="musicIcon"></i>
+        </button>
+        
+        <!-- Music Notes Container -->
+        <div id="musicNotes" class="absolute -top-10 -left-10 w-32 h-32 pointer-events-none"></div>
+        
+        <!-- Help Text (Appears when auto-play fails) -->
+        <div id="playHelp" class="absolute -left-2 -top-20 bg-pink-600 text-white text-xs px-2 py-1 rounded-md whitespace-nowrap hidden">
+            Click anywhere to play music
+        </div>
+    </div>
+</div>
+
+<!-- Background Music -->
+<audio loop id="bgMusic">
+    <source src="image-asset/background-song.mp3" type="audio/mpeg">
+</audio>
+
+
+
+
+    <!-- Navigation Dots -->
+    <div class="fixed right-5 top-1/2 transform -translate-y-1/2 z-50 hidden md:block">
+        <div class="flex flex-col space-y-3">
+            <a href="#greeting" class="w-3 h-3 rounded-full bg-pink-500 border-2 border-white nav-dot active"></a>
+            <a href="#memories" class="w-3 h-3 rounded-full bg-pink-500 border-2 border-white nav-dot"></a>
+            <a href="#videos" class="w-3 h-3 rounded-full bg-pink-500 border-2 border-white nav-dot"></a>
+            <a href="#message" class="w-3 h-3 rounded-full bg-pink-500 border-2 border-white nav-dot"></a>
+        </div>
+    </div>
+    
+    <!-- Floating Hearts -->
+    <div id="hearts-container"></div>
+    
+    <!-- Greeting Section -->
+    <section id="greeting" class="section flex items-center justify-center text-center px-4">
+        <div class="container mx-auto relative z-10">
+            <div class="ship" id="ship1"></div>
+            <div class="wave"></div>
+            
+            <div class="fade-in">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 cursive text-pink-400">Happy Anniversary!</h1>
+                <p class="text-xl md:text-2xl mb-8">To the one who makes every distance worth it.</p>
+                <div class="flex justify-center space-x-4">
+                    <div class="w-16 h-16 rounded-full bg-pink-500 flex items-center justify-center animate-bounce">
+                        <i class="fas fa-heart text-white text-2xl"></i>
+                    </div>
+                    <div class="w-16 h-16 rounded-full bg-pink-500 flex items-center justify-center animate-bounce" style="animation-delay: 0.2s;">
+                        <i class="fas fa-anchor text-white text-2xl"></i>
+                    </div>
+                    <div class="w-16 h-16 rounded-full bg-pink-500 flex items-center justify-center animate-bounce" style="animation-delay: 0.4s;">
+                        <i class="fas fa-heart text-white text-2xl"></i>
+                    </div>
+                </div>
+                <p class="mt-8 text-lg">Distance means so little when someone means so much</p>
+            </div>
+            
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <i class="fas fa-chevron-down text-white text-2xl"></i>
+            </div>
+        </div>
+    </section>
+    <!-- Journey Timeline Section - Mobile Friendly Version -->
+<section id="journey" class="section flex items-center justify-center bg-gradient-to-b from-indigo-900 to-purple-900 px-4 py-12">
+    <div class="container mx-auto relative z-10">
+        <div class="wave"></div>
+        
+        <div class="fade-in">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center cursive text-pink-400">Our Journey</h2>
+            
+            <!-- Mobile Timeline (Shows only on mobile) -->
+            <div class="mobile-timeline md:hidden">
+                <div class="year-navigation flex justify-between items-center mb-6">
+                    <button id="prevYearMobile" class="nav-button bg-pink-600 text-white rounded-full w-12 h-12 flex items-center justify-center disabled:bg-gray-500" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="current-year text-2xl font-bold text-pink-300 mx-4" id="currentYearMobile"></div>
+                    
+                    <button id="nextYearMobile" class="nav-button bg-pink-600 text-white rounded-full w-12 h-12 flex items-center justify-center">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="story-card bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 border border-pink-300 border-opacity-30">
+                    <h3 id="storyTitleMobile" class="text-xl font-bold text-pink-300 mb-4">Our Beginning</h3>
+                    <p id="storyContentMobile" class="text-gray-100 mb-4">Our love story began in the most unexpected way—at a wedding, of all places. We didn’t know it then, but something quietly sparked between us. You went out of your way to see me again, and from that moment, our first chapter began.</p>
+                    <div class="story-icon flex justify-center">
+                        <div class="w-16 h-16 rounded-full bg-pink-500 bg-opacity-30 flex items-center justify-center">
+                            <i id="storyIconMobile" class="fas fa-heart text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Desktop Timeline (Shows only on desktop) -->
+            <div class="timeline-container relative max-w-4xl mx-auto hidden md:block">
+                <div class="absolute left-1/2 transform -translate-x-1/2 w-1 bg-pink-500 h-full top-0"></div>
+                
+                <div class="space-y-16">
+                    <!-- 2020 -->
+                    <div class="timeline-item group relative flex flex-col md:flex-row items-center justify-center transition-all duration-500 hover:scale-105">
+                        <div class="year-bubble bg-pink-600 text-white rounded-full w-24 h-24 flex items-center justify-center text-2xl font-bold mb-4 md:mb-0 md:mr-8 z-10 cursor-pointer hover:bg-pink-700 transition-all duration-300">
+                            2021
+                        </div>
+                        <div class="story-card hidden md:block bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 max-w-md border border-pink-300 border-opacity-30 transform translate-y-10 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                            <h3 class="text-xl font-bold text-pink-300 mb-2">Destiny</h3>
+                            <p class="text-gray-100">We met by chance, and it felt like the timing was perfect when you came into my life. Honestly, you were the one who completed me. Since then, everything started to make sense — you became my peace, my strength, and the reason I smile every day.</p>
+                            <div class="mt-4 flex justify-center">
+                                <div class="w-16 h-16 rounded-full bg-pink-500 bg-opacity-30 flex items-center justify-center">
+                                    <i class="fas fa-heart text-white"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 2021 -->
+                    <div class="timeline-item group relative flex flex-col md:flex-row-reverse items-center justify-center transition-all duration-500 hover:scale-105">
+                        <div class="year-bubble bg-pink-600 text-white rounded-full w-24 h-24 flex items-center justify-center text-2xl font-bold mb-4 md:mb-0 md:ml-8 z-10 cursor-pointer hover:bg-pink-700 transition-all duration-300">
+                            2022
+                        </div>
+                        <div class="story-card hidden md:block bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 max-w-md border border-pink-300 border-opacity-30 transform translate-y-10 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                            <h3 class="text-xl font-bold text-pink-300 mb-2">It's a Yes</h3>
+                            <p class="text-gray-100">This year, I was blessed with the sweetest 'yes' from you — a moment I’ll never forget. It marked the beginning of something beautiful, something real. From that day on, everything felt lighter, happier, and full of love</p>
+                            <div class="mt-4 flex justify-center">
+                                <div class="w-16 h-16 rounded-full bg-pink-500 bg-opacity-30 flex items-center justify-center">
+                                    <i class="fas fa-heart text-white"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Add more years as needed -->
+                    <!-- 2022 -->
+                    <div class="timeline-item group relative flex flex-col md:flex-row items-center justify-center transition-all duration-500 hover:scale-105">
+                        <div class="year-bubble bg-pink-600 text-white rounded-full w-24 h-24 flex items-center justify-center text-2xl font-bold mb-4 md:mb-0 md:mr-8 z-10 cursor-pointer hover:bg-pink-700 transition-all duration-300">
+                            2023
+                        </div>
+                        <div class="story-card hidden md:block bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 max-w-md border border-pink-300 border-opacity-30 transform translate-y-10 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                            <h3 class="text-xl font-bold text-pink-300 mb-2">Memories</h3>
+                            <p class="text-gray-100">We've already created so many memories together — moments filled with laughter, some with tears, and everything in between. Through the highs and lows, we’ve grown stronger, and every experience has brought us closer. Each memory, whether happy or sad, is a piece of our story that I’ll always treasure.</p>
+                            <div class="mt-4 flex justify-center">
+                                <div class="w-16 h-16 rounded-full bg-pink-500 bg-opacity-30 flex items-center justify-center">
+                                    <i class="fas fa-heart text-white"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 2023 -->
+                    <div class="timeline-item group relative flex flex-col md:flex-row-reverse items-center justify-center transition-all duration-500 hover:scale-105">
+                        <div class="year-bubble bg-pink-600 text-white rounded-full w-24 h-24 flex items-center justify-center text-2xl font-bold mb-4 md:mb-0 md:ml-8 z-10 cursor-pointer hover:bg-pink-700 transition-all duration-300">
+                            2024
+                        </div>
+                        <div class="story-card hidden md:block bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 max-w-md border border-pink-300 border-opacity-30 transform translate-y-10 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                            <h3 class="text-xl font-bold text-pink-300 mb-2">Create Forever</h3>
+                            <p class="text-gray-100">Little by little, our dreams are finally coming to life. We both have jobs now, building our future hand in hand. It may still be a long journey, but what matters most is that we're chasing our dreams together. Every step we take brings us closer to the life we've always imagined — a life filled with love, shared goals, and a forever by each other's side</p>
+                            <div class="mt-4 flex justify-center">
+                                <div class="w-16 h-16 rounded-full bg-pink-500 bg-opacity-30 flex items-center justify-center">
+                                    <i class="fas fa-heart text-white"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                         <!-- Present -->
+                    <div class="timeline-item group relative flex flex-col md:flex-row items-center justify-center transition-all duration-500 hover:scale-105">
+                        <div class="year-bubble bg-pink-600 text-white rounded-full w-24 h-24 flex items-center justify-center text-2xl font-bold mb-4 md:mb-0 md:mr-8 z-10 cursor-pointer hover:bg-pink-700 transition-all duration-300">
+                            Present
+                        </div>
+                        <div class="story-card hidden md:block bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 max-w-md border border-pink-300 border-opacity-30 transform translate-y-10 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                            <h3 class="text-xl font-bold text-pink-300 mb-2">Grow Together</h3>
+                            <p class="text-gray-100">Until now, we continue to chase dreams side by side. Every step we take brings us closer to the future we've always hoped for. No matter how long the journey, I know we’ll succeed — together, as one</p>
+                            <div class="mt-4 flex justify-center">
+                                <div class="w-16 h-16 rounded-full bg-pink-500 bg-opacity-30 flex items-center justify-center">
+                                    <i class="fas fa-heart text-white"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+               
+                 
+                </div>
+            </div>
+        </div>
+           <div class="flex justify-center mt-8">
+                <button class="permanent-heart-btn">
+                    <svg viewBox="0 0 24 24" class="heart-icon">
+                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                  </button>
+              </div>
+    </div>
+</section>
+
+<script>
+// Timeline data for mobile
+const mobileTimelineData = [
+    {
+        year: "2021",
+        title: "Destiny",
+        content: "We met by chance, and it felt like the timing was perfect when you came into my life. Honestly, you were the one who completed me. Since then, everything started to make sense — you became my peace, my strength, and the reason I smile every day.",
+        icon: "fa-heart"
+    },
+    {
+        year: "2022",
+        title: "It's a Yes",
+        content: "This year, I was blessed with the sweetest 'yes' from you — a moment I’ll never forget. It marked the beginning of something beautiful, something real. From that day on, everything felt lighter, happier, and full of love.",
+       icon: "fa-heart"
+    },
+    {
+        year: "2023",
+        title: "Memories",
+        content: "We've already created so many memories together — moments filled with laughter, some with tears, and everything in between. Through the highs and lows, we’ve grown stronger, and every experience has brought us closer. Each memory, whether happy or sad, is a piece of our story that I’ll always treasure.",
+        icon: "fa-heart"
+    },
+    
+   
+    {
+        year: "2024",
+        title: "Create Forever",
+        content: "Little by little, our dreams are finally coming to life. We both have jobs now, building our future hand in hand. It may still be a long journey, but what matters most is that we're chasing our dreams together. Every step we take brings us closer to the life we've always imagined — a life filled with love, shared goals, and a forever by each other's side",
+        icon: "fa-heart"
+    },
+    {
+        year: "Present",
+        title: "Grow Together",
+        content: "Until now, we continue to chase dreams side by side. Every step we take brings us closer to the future we've always hoped for. No matter how long the journey, I know we’ll succeed — together, as one",
+        icon: "fa-heart"
+    }
+];
+
+
+// Mobile timeline functionality
+if (window.innerWidth < 768) {
+    let currentMobileIndex = 0;
+    const currentYearEl = document.getElementById('currentYearMobile');
+    const storyTitleEl = document.getElementById('storyTitleMobile');
+    const storyContentEl = document.getElementById('storyContentMobile');
+    const storyIconEl = document.getElementById('storyIconMobile');
+    const prevBtn = document.getElementById('prevYearMobile');
+    const nextBtn = document.getElementById('nextYearMobile');
+
+    function updateMobileTimeline() {
+        const current = mobileTimelineData[currentMobileIndex];
+        currentYearEl.textContent = current.year;
+        storyTitleEl.textContent = current.title;
+        storyContentEl.textContent = current.content;
+        storyIconEl.className = `fas ${current.icon} text-white text-2xl`;
+        
+        // Update button states
+        prevBtn.disabled = currentMobileIndex === 0;
+        nextBtn.disabled = currentMobileIndex === mobileTimelineData.length - 1;
+    }
+
+    // Button event listeners
+    prevBtn.addEventListener('click', () => {
+        if (currentMobileIndex > 0) {
+            currentMobileIndex--;
+            updateMobileTimeline();
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentMobileIndex < mobileTimelineData.length - 1) {
+            currentMobileIndex++;
+            updateMobileTimeline();
+        }
+    });
+
+    // Initialize
+    updateMobileTimeline();
+}
+
+// Desktop timeline hover effects
+if (window.innerWidth >= 768) {
+    document.querySelectorAll('.timeline-item').forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            item.querySelector('.story-card').classList.add('opacity-100', 'translate-y-0');
+        });
+        
+        item.addEventListener('mouseleave', () => {
+            item.querySelector('.story-card').classList.remove('opacity-100', 'translate-y-0');
+        });
+    });
+}
+</script>
+        <!-- Heart Button with Animation -->
+
+        <style>
+            .permanent-heart-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 1rem;
+  position: relative;
+  outline: none;
+}
+
+.permanent-heart-btn .heart-icon {
+  width: 3rem;
+  height: 3rem;
+  fill: none;
+  stroke: #ec4899;
+  stroke-width: 2px;
+  transition: all 0.3s ease;
+}
+
+.permanent-heart-btn.clicked .heart-icon {
+  fill: #ef4444 !important;
+  stroke: #ef4444 !important;
+}
+
+.permanent-heart-btn:active .heart-icon {
+  animation: heartBeat 0.6s ease;
+}
+
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.3); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes floatUp {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+  10% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--random-x)), -150vh) scale(0); opacity: 0; }
+}
+          </style>
+          
+          
+
+    <!-- Photo Memories Section -->
+    <section id="memories" class="section flex items-center justify-center bg-gray-900 px-4">
+        <div class="container mx-auto relative z-10">
+            <div class="ship" id="ship2"></div>
+            <div class="wave"></div>
+            
+            <div class="fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center cursive text-pink-400">Our Beautiful Memories</h2>
+                
+                <div class="photo-slider">
+                    <!-- Replace these with your actual photos -->
+                    <div class="photo-slide active" style="background-image: url('image-asset/image10.jpeg');"></div>
+                    <div class="photo-slide active" style="background-image: url('image-asset/image1.jpeg');"></div>
+                    <div class="photo-slide active" style="background-image: url('image-asset/image3.jpeg');"></div>
+                    <div class="photo-slide active" style="background-image: url('image-asset/image4.jpeg');"></div>
+                    <div class="photo-slide active" style="background-image: url('image-asset/image5.jpeg');"></div>
+                    <div class="photo-slide active" style="background-image: url('image-asset/image6.jpeg');"></div>
+                    <div class="photo-slide active" style="background-image: url('image-asset/image7.jpeg');"></div>
+                    <div class="photo-slide active" style="background-image: url('image-asset/image8.jpeg');"></div>
+                    <div class="photo-slide active" style="background-image: url('image-asset/image9.jpeg');"></div>
+                    <div class="photo-slide active" style="background-image: url('image-asset/image2.jpeg');"></div>
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+                
+                <p class="mt-8 text-center max-w-2xl mx-auto">Though we're on separate islands, I would journey through any distance, no matter how long, just to be in your arms once more. Every mile apart only makes my heart yearn for you more. With each passing moment, the thought of holding you again fills me with endless anticipation and love.</p>
+            </div>
+            <div class="flex justify-center mt-8">
+                <button class="permanent-heart-btn">
+                    <svg viewBox="0 0 24 24" class="heart-icon">
+                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                  </button>
+              </div>
+          
+        </div>
+       
+
+       
+     
+        
+    </section>
+    
+   <!-- Videos Section -->
+<section id="videos" class="section flex items-center justify-center px-4">
+    <div class="container mx-auto relative z-10">
+        <div class="ship" id="ship3"></div>
+        <div class="wave"></div>
+
+        <div class="fade-in">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center cursive text-pink-400">Moments captured in seconds but felt forever</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <!-- Video 1 -->
+                <div class="video-container">
+                    <figure>
+                        <video autoplay muted loop class="w-full h-auto">
+                            <source src="image-asset/video-moment3.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <figcaption class="text-center mt-2">Every moment with you is a gift I deeply cherish. I’m forever grateful for the love and joy you bring into my life.</figcaption>
+                    </figure>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="video-container">
+                    <figure>
+                        <video autoplay muted loop class="w-full h-auto">
+                            <source src="image-asset/video-moment2.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <figcaption class="text-center mt-2">I'm happy that little by little, we're making our dreams come true together. Every step we take feels more meaningful because we're experiencing it side by side.</figcaption>
+                    </figure>
+                </div>
+
+                <!-- Video 3 -->
+                <div class="video-container">
+                    <figure>
+                        <video autoplay muted loop class="w-full h-auto">
+                            <source src="image-asset/video-moment3.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <figcaption class="text-center mt-2">You are my strength and the reason I feel alive. With you, every day is filled with purpose and love.</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <p class="mt-8 text-center max-w-2xl mx-auto">Every moment with you is a blessing, a beautiful gift from above that I cherish deeply. No matter the distance, you will always remain close to my heart.</p>
+        </div>
+        <div class="flex justify-center mt-8">
+            <button class="permanent-heart-btn">
+                <svg viewBox="0 0 24 24" class="heart-icon">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+              </button>
+          </div>
+    </div>
+</section>
+<!-- Add this new section anywhere you want in your HTML, perhaps after the videos section -->
+<section id="special-memory" class="section flex items-center justify-center px-4 bg-indigo-900">
+    <div class="container mx-auto relative z-10">
+        <div class="wave"></div>
+
+        <div class="fade-in">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center cursive text-pink-400">Our Special Memory</h2>
+
+            <div class="max-w-4xl mx-auto">
+                <!-- Special video with enhanced mobile compatibility -->
+                <div class="video-container relative">
+                    <!-- Poster image as fallback -->
+                    <video 
+                        playsinline 
+                        webkit-playsinline 
+                        muted 
+                        autoplay 
+                        loop 
+                        preload="auto"
+                        class="w-full h-auto rounded-lg shadow-xl"
+                        poster="image-asset/video-poster.jpg"> <!-- Add a poster image -->
+                        <source src="image-asset/video-moment.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    
+                    <!-- Custom play button for iOS -->
+                    <div id="ios-play-button" class="absolute inset-0 flex items-center justify-center hidden">
+                        <button class="bg-pink-600 hover:bg-pink-700 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg transform hover:scale-110 transition-all duration-300">
+                            <i class="fas fa-play text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <p class="mt-8 text-center max-w-2xl mx-auto">This special moment will forever be etched in our hearts. No matter where life takes us, this memory will always bring us back together.</p>
+            </div>
+        </div>
+        <div class="flex justify-center mt-8">
+            <button class="permanent-heart-btn">
+                <svg viewBox="0 0 24 24" class="heart-icon">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+              </button>
+          </div>
+    </div>
+</section>
+
+<script>
+// Special video handling for iOS
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.querySelector('#special-memory video');
+    const iosPlayButton = document.getElementById('ios-play-button');
+    
+    // Check if iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                 (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    
+    // For iOS, show custom play button
+    if (isIOS) {
+        iosPlayButton.classList.remove('hidden');
+        
+        iosPlayButton.addEventListener('click', function() {
+            video.play()
+                .then(() => {
+                    iosPlayButton.classList.add('hidden');
+                })
+                .catch(e => {
+                    console.error("Video play failed:", e);
+                });
+        });
+    }
+    
+    // For Android and other devices, try to autoplay
+    video.play().catch(e => {
+        console.log("Autoplay blocked, showing play button");
+        iosPlayButton.classList.remove('hidden');
+    });
+    
+    // Click anywhere on video container to play/pause
+    document.querySelector('#special-memory .video-container').addEventListener('click', function() {
+        if (video.paused) {
+            video.play();
+            iosPlayButton.classList.add('hidden');
+        } else {
+            video.pause();
+            iosPlayButton.classList.remove('hidden');
+        }
+    });
+});
+</script>
+
+    
+    <!-- Message Section -->
+    <section id="message" class="section flex items-center justify-center bg-gray-900 px-4">
+        <div class="container mx-auto relative z-10">
+            <div class="ship" id="ship4"></div>
+            <div class="wave"></div>
+    
+            <div class="fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center cursive text-pink-400">Read my Heart Beat</h2>
+    
+                <div class="envelope-container">
+                    <div class="envelope" id="envelope">
+                        <!-- Letter hidden initially -->
+                        <div class="letter p-6">
+                            <h3 class="text-2xl font-bold mb-4 cursive text-pink-600 typing-effect">My Bebu,</h3>
+                            <div class="text-gray-800 space-y-4 letter-content">
+                                <p class="typing-effect">Hello Bebu, <br>
+
+                                    I thank God every single day for bringing you into my life. I often find myself wondering what I’ve done to deserve someone as beautiful, kind, and amazing as you. Every moment spent with you feels like a blessing, and I’m constantly in awe of the love we share. You make me a better person, and I feel so incredibly lucky to have you by my side. No matter what challenges come our way or how far apart we may be, always know that I’ll be right here, standing by you, supporting you, and loving you with all my heart. You mean the world to me, and I will never stop being thankful for the love we have. You're my heart, my strength, and the reason I wake up with a smile each day.  </p>
+                                <p class="mt-8 cursive text-pink-600 typing-effect">Forever yours,</p>
+                                <p class="cursive text-pink-600 typing-effect">Your Bebu</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mt-8 text-center">Click the envelope to open my Heart</p>
+                </div>
+            <div class="flex justify-center mt-8">
+                <button class="permanent-heart-btn">
+                    <svg viewBox="0 0 24 24" class="heart-icon">
+                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                  </button>
+              </div>
+        </div>
+    </section>
+    
+    <!-- Final Section -->
+    <section class="min-h-50vh flex items-center justify-center bg-gradient-to-b from-gray-900 to-indigo-900 px-4 py-20">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 cursive text-pink-400">Happy Anniversary, My Bebu</h2>
+            <p class="text-xl mb-8">Distance is just a test of how far love can travel</p>
+            <div class="flex justify-center space-x-4">
+                <!-- <button class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-full transition duration-300 transform hover:scale-105">
+                    <i class="fas fa-heart mr-2"></i> Our Song
+                </button>
+                <button class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full transition duration-300 transform hover:scale-105">
+                    <i class="fas fa-image mr-2"></i> More Photos
+                </button>
+            </div> -->
+            <div class="mt-12 text-gray-400">
+                <p>Made with <i class="fas fa-heart text-pink-500"></i> for you</p>
+                <a href="https://www.facebook.com/share/1BsJQ4mvaY/?mibextid=wwXIfr" target="_blank">
+                <img src="image-asset/hhc-logo.png" alt="Happy Hand Crafts Fb Page" title ="FB Page" class="inline-block " style="width: 150px; height: auto;" />
+            </a>
+                <p class="text-sm mt-2">
+                    © <span id="year"></span> Happy Hand Crafts
+                  </p>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+      // DOM elements
+      const musicToggle = document.getElementById('musicToggle');
+        const bgMusic = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        const vinylDisc = document.getElementById('vinylDisc');
+        const musicNotes = document.getElementById('musicNotes');
+        const playHelp = document.getElementById('playHelp');
+        
+        // State
+        let isPlaying = false;
+        bgMusic.volume = 0.3;
+        
+        // 1. First try to autoplay immediately
+        attemptAutoplay();
+        
+        // 2. If that fails, show help text and try again on user interaction
+        document.addEventListener('click', handleFirstInteraction, { once: true });
+        
+        // 3. Normal play/pause toggle
+        musicToggle.addEventListener('click', togglePlayback);
+        
+        function attemptAutoplay() {
+            bgMusic.play().then(() => {
+                // Success! Update UI
+                isPlaying = true;
+                updatePlayState();
+            }).catch(e => {
+                // Failed, will wait for user interaction
+                console.log("Autoplay blocked, waiting for user interaction");
+                playHelp.classList.remove('hidden');
+            });
+        }
+        
+        function handleFirstInteraction() {
+            if (!isPlaying) {
+                playHelp.classList.add('hidden');
+                attemptAutoplay();
+            }
+        }
+        
+        function togglePlayback() {
+            if (isPlaying) {
+                bgMusic.pause();
+            } else {
+                bgMusic.play();
+            }
+            isPlaying = !isPlaying;
+            updatePlayState();
+        }
+        
+        function updatePlayState() {
+            if (isPlaying) {
+                musicIcon.classList.replace('fa-play', 'fa-pause');
+                vinylDisc.classList.add('animate-spin');
+                startNoteAnimation();
+            } else {
+                musicIcon.classList.replace('fa-pause', 'fa-play');
+                vinylDisc.classList.remove('animate-spin');
+                stopNoteAnimation();
+            }
+        }
+        
+        // Music notes animation
+        let noteInterval;
+        function startNoteAnimation() {
+            noteInterval = setInterval(createMusicNote, 300);
+        }
+        
+        function stopNoteAnimation() {
+            clearInterval(noteInterval);
+        }
+        
+        function createMusicNote() {
+            const note = document.createElement('div');
+            note.className = 'music-note';
+            note.innerHTML = Math.random() > 0.5 ? '♪' : '♫';
+            note.style.left = `${Math.random() * 60 + 20}px`;
+            note.style.bottom = '10px';
+            note.style.animationDuration = `${Math.random() * 1 + 1.5}s`;
+            note.style.opacity = Math.random() * 0.5 + 0.5;
+            
+            musicNotes.appendChild(note);
+            
+            setTimeout(() => {
+                note.remove();
+            }, 3000);
+        }
+        // Set current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Create stars
+        function createStars() {
+            const container = document.body;
+            const starCount = 100;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random size between 1 and 3px
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random position
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.top = `${Math.random() * 100}vh`;
+                
+                // Random animation duration
+                const duration = Math.random() * 5 + 3;
+                star.style.setProperty('--duration', `${duration}s`);
+                
+                container.appendChild(star);
+            }
+        }
+        
+        // Create floating hearts
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            const heartCount = 15;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '<i class="fas fa-heart text-pink-400"></i>';
+                
+                // Random size
+                const size = Math.random() * 20 + 10;
+                heart.style.fontSize = `${size}px`;
+                
+                // Random position
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.top = `${Math.random() * 100}vh`;
+                
+                // Random animation duration and delay
+                const duration = Math.random() * 3 + 3;
+                heart.style.animationDuration = `${duration}s`;
+                heart.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(heart);
+            }
+        }
+      // Photo slider
+function initPhotoSlider() {
+    const slides = document.querySelectorAll('.photo-slide');
+    let currentSlide = 0;
+
+    // Function to show the next slide
+    function nextSlide() {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }
+
+    // Change slide every 2 seconds (2000 milliseconds)
+    setInterval(nextSlide, 2000);
+}
+
+// Wait for the DOM to fully load and then initialize the slider
+document.addEventListener('DOMContentLoaded', function () {
+    initPhotoSlider();  // Initialize the photo slider
+});
+        
+        
+        // Envelope interaction
+        function initEnvelope() {
+            const envelope = document.getElementById('envelope');
+            
+            envelope.addEventListener('click', function() {
+                this.classList.toggle('open');
+            });
+        }
+        
+        // Ship animations on scroll
+        function initShipAnimations() {
+            const ships = {
+                ship1: { start: 0, end: 25, element: document.getElementById('ship1') },
+                ship2: { start: 25, end: 50, element: document.getElementById('ship2') },
+                ship3: { start: 50, end: 75, element: document.getElementById('ship3') },
+                ship4: { start: 75, end: 100, element: document.getElementById('ship4') }
+            };
+            
+            function updateShips() {
+                const scrollPercentage = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+                
+                for (const [id, ship] of Object.entries(ships)) {
+                    if (scrollPercentage >= ship.start && scrollPercentage <= ship.end) {
+                        const progress = (scrollPercentage - ship.start) / (ship.end - ship.start);
+                        const position = progress * (window.innerWidth + 200) - 100;
+                        ship.element.style.left = `${position}px`;
+                        ship.element.style.opacity = '1';
+                    } else if (scrollPercentage < ship.start) {
+                        ship.element.style.left = '-100px';
+                        ship.element.style.opacity = '0';
+                    } else {
+                        ship.element.style.left = `${window.innerWidth + 100}px`;
+                        ship.element.style.opacity = '0';
+                    }
+                }
+            }
+            
+            window.addEventListener('scroll', updateShips);
+            updateShips();
+        }
+        
+        // Scroll animations for sections
+        function initScrollAnimations() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            function checkVisibility() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('visible');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', checkVisibility);
+            checkVisibility(); // Check on load
+        }
+        
+        // Navigation dots interaction
+        function initNavigationDots() {
+            const sections = document.querySelectorAll('section');
+            const dots = document.querySelectorAll('.nav-dot');
+            
+            function updateDots() {
+                const scrollPosition = window.scrollY + 100;
+                
+                sections.forEach((section, index) => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        dots.forEach(dot => dot.classList.remove('active'));
+                        dots[index].classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', updateDots);
+            updateDots(); // Update on load
+            
+            // Click event for dots
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    sections[index].scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        }
+        
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            createHearts();
+            initPhotoSlider();
+            initEnvelope();
+            initShipAnimations();
+            initScrollAnimations();
+            initNavigationDots();
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('anniversary-modal');
+        const closeBtn = document.getElementById('close-modal');
+        
+        // Close modal when clicking the heart
+        closeBtn.addEventListener('click', function() {
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 1000);
+        });
+        
+        // Optional: Close when clicking outside modal
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.opacity = '0';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 1000);
+            }
+        });
+    });
+    </script>
+    <script>
+        // Video handling for mobile
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all videos
+    const videos = document.querySelectorAll('.video-container video');
+    
+    // Add click handler to each video container
+    document.querySelectorAll('.video-container').forEach((container, index) => {
+        const video = container.querySelector('video');
+        const overlay = container.querySelector('.video-play-overlay');
+        
+        // Click/tap to play
+        container.addEventListener('click', function() {
+            if(video.paused) {
+                video.play()
+                    .then(() => {
+                        container.classList.add('playing');
+                    })
+                    .catch(e => {
+                        console.error("Video play failed:", e);
+                    });
+            } else {
+                video.pause();
+                container.classList.remove('playing');
+            }
+        });
+        
+        // For iOS - needs special handling
+        video.addEventListener('play', function() {
+            container.classList.add('playing');
+        });
+        
+        video.addEventListener('pause', function() {
+            container.classList.remove('playing');
+        });
+    });
+    
+    // Enable video playback after any user interaction
+    function enableVideos() {
+        document.querySelectorAll('.video-container video').forEach(video => {
+            video.muted = true; // Mute by default for autoplay
+            video.play().catch(e => console.log("Video autoplay blocked"));
+        });
+    }
+    
+    // Try to enable on first interaction
+    document.addEventListener('click', enableVideos, { once: true });
+    document.addEventListener('touchstart', enableVideos, { once: true });
+});
+// DOM elements
+const musicToggle = document.getElementById('musicToggle');
+const bgMusic = document.getElementById('bgMusic');
+const musicIcon = document.getElementById('musicIcon');
+const vinylDisc = document.getElementById('vinylDisc');
+const playHelp = document.getElementById('playHelp');
+
+// State
+let isPlaying = false;
+bgMusic.volume = 0.3;
+
+// 1. Try to autoplay immediately (will fail on mobile)
+bgMusic.play().catch(e => {
+  console.log("Autoplay blocked, showing help text");
+  playHelp.classList.remove('hidden');
+});
+
+// 2. Mobile-friendly play trigger
+function enableAudio() {
+  bgMusic.play()
+    .then(() => {
+      isPlaying = true;
+      updatePlayState();
+      playHelp.classList.add('hidden');
+    })
+    .catch(e => {
+      console.log("Playback failed:", e);
+    });
+}
+
+// 3. Add these event listeners for mobile
+document.addEventListener('click', function firstInteraction() {
+  enableAudio();
+  // Remove after first interaction
+  document.removeEventListener('click', firstInteraction);
+}, { once: true });
+
+document.addEventListener('touchstart', function firstTouch() {
+  enableAudio();
+  document.removeEventListener('touchstart', firstTouch);
+}, { once: true });
+
+// 4. Normal toggle functionality
+musicToggle.addEventListener('click', function(e) {
+  e.stopPropagation(); // Prevent triggering document click
+  
+  if (isPlaying) {
+    bgMusic.pause();
+  } else {
+    bgMusic.play();
+  }
+  isPlaying = !isPlaying;
+  updatePlayState();
+});
+
+function updatePlayState() {
+  if (isPlaying) {
+    musicIcon.classList.replace('fa-play', 'fa-pause');
+    vinylDisc.classList.add('animate-spin-slow');
+    startNoteAnimation();
+  } else {
+    musicIcon.classList.replace('fa-pause', 'fa-play');
+    vinylDisc.classList.remove('animate-spin-slow');
+    stopNoteAnimation();
+  }
+}
+    </script>
+    <script>
+        
+        // Auto-play fallback para sa mobile browsers
+        document.addEventListener('click', function() {
+            document.getElementById('bgMusic').play();
+        }, { once: true });
+
+const musicToggle = document.getElementById('musicToggle');
+const bgMusic = document.getElementById('bgMusic');
+const musicIcon = document.getElementById('musicIcon');
+const vinylDisc = document.getElementById('vinylDisc');
+const playHelp = document.getElementById('playHelp');
+
+// State
+let isPlaying = false;
+bgMusic.volume = 0.3;
+
+// 1. Try to autoplay immediately (will fail on mobile)
+bgMusic.play().catch(e => {
+  console.log("Autoplay blocked, showing help text");
+  playHelp.classList.remove('hidden');
+});
+
+// 2. Mobile-friendly play trigger
+function enableAudio() {
+  bgMusic.play()
+    .then(() => {
+      isPlaying = true;
+      updatePlayState();
+      playHelp.classList.add('hidden');
+    })
+    .catch(e => {
+      console.log("Playback failed:", e);
+    });
+}
+
+// 3. Add these event listeners for mobile
+document.addEventListener('click', function firstInteraction() {
+  enableAudio();
+  // Remove after first interaction
+  document.removeEventListener('click', firstInteraction);
+}, { once: true });
+
+document.addEventListener('touchstart', function firstTouch() {
+  enableAudio();
+  document.removeEventListener('touchstart', firstTouch);
+}, { once: true });
+
+// 4. Normal toggle functionality
+musicToggle.addEventListener('click', function(e) {
+  e.stopPropagation(); // Prevent triggering document click
+  
+  if (isPlaying) {
+    bgMusic.pause();
+  } else {
+    bgMusic.play();
+  }
+  isPlaying = !isPlaying;
+  updatePlayState();
+});
+
+function updatePlayState() {
+  if (isPlaying) {
+    musicIcon.classList.replace('fa-play', 'fa-pause');
+    vinylDisc.classList.add('animate-spin-slow');
+    startNoteAnimation();
+  } else {
+    musicIcon.classList.replace('fa-pause', 'fa-play');
+    vinylDisc.classList.remove('animate-spin-slow');
+    stopNoteAnimation();
+  }
+}
+
+
+
+
+
+        // Timeline interaction
+        function initTimeline() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const mobileTitle = document.getElementById('mobile-story-title');
+            const mobileContent = document.getElementById('mobile-story-content');
+            const mobileIcon = document.getElementById('mobile-story-icon');
+            
+            // Story data for mobile
+            const stories = [
+                {
+                    title: "Our Beginning",
+                    content: "The year we first met. Remember that awkward first date at the coffee shop? You spilled your latte and I laughed - not at you, but with you (though you were still embarrassed). Little did we know that clumsy moment would be the start of our beautiful story.",
+                    icon: '<i class="fas fa-heart text-white"></i>'
+                },
+                {
+                    title: "First Challenges",
+                    content: "Your first long voyage. I cried when you left but you promised to bring me seashells from every port. That box of shells you sent is still my most treasured possession. We learned that distance makes the heart grow fonder, but also stronger.",
+                    icon: '<i class="fas fa-anchor text-white"></i>'
+                },
+                {
+                    title: "Growing Together",
+                    content: "The year we adopted Luna! That video call when you first saw her - your face lit up like a Christmas tree. She became our connection when you were away, and our joy when you were home. Our little family was growing in love if not in size.",
+                    icon: '<i class="fas fa-paw text-white"></i>'
+                },
+                {
+                    title: "The Big Storm",
+                    content: "The typhoon that kept you at sea an extra month. I've never prayed so hard in my life. When you finally docked, your hug felt like coming home. That year taught us that our love could weather any storm - literal or metaphorical.",
+                    icon: '<i class="fas fa-umbrella text-white"></i>'
+                },
+                {
+                    title: "Our Love Today",
+                    content: "After all these years, my heart still skips a beat when I see your name pop up on my phone. The countdown to your return is always my favorite calendar. Through all the hellos and goodbyes, one thing remains constant - this incredible love we've built together.",
+                    icon: '<i class="fas fa-ring text-white"></i>'
+                }
+            ];
+            
+            // For desktop, the hover effects are handled by CSS
+            // For mobile, we need click events
+            if (window.innerWidth < 768) {
+                timelineItems.forEach((item, index) => {
+                    const bubble = item.querySelector('.year-bubble');
+                    
+                    bubble.addEventListener('click', () => {
+                        // Update mobile story viewer
+                        mobileTitle.textContent = stories[index].title;
+                        mobileContent.textContent = stories[index].content;
+                        mobileIcon.innerHTML = `<div class="w-16 h-16 rounded-full bg-pink-500 bg-opacity-30 flex items-center justify-center">${stories[index].icon}</div>`;
+                        
+                        // Highlight selected year
+                        document.querySelectorAll('.year-bubble').forEach(b => {
+                            b.classList.remove('bg-pink-700');
+                            b.classList.add('bg-pink-600');
+                        });
+                        bubble.classList.remove('bg-pink-600');
+                        bubble.classList.add('bg-pink-700');
+                    });
+                });
+                
+                // Trigger first story by default
+                if (timelineItems.length > 0) {
+                    timelineItems[0].querySelector('.year-bubble').click();
+                }
+            }
+        }
+        
+        // Add to your existing DOMContentLoaded event listener
+        document.addEventListener('DOMContentLoaded', function() {
+            // ... your existing code ...
+            initTimeline();
+        });
+
+        const mobileTimeline = [
+            {
+                year: "2020",
+                title: "Our Beginning",
+                content: "The year we first met. Remember that awkward first date at the coffee shop? You spilled your latte and I laughed - not at you, but with you (though you were still embarrassed).",
+                icon: "fa-heart"
+            },
+            {
+                year: "2021",
+                title: "First Challenges",
+                content: "Your first long voyage. I cried when you left but you promised to bring me seashells from every port. That box of shells you sent is still my most treasured possession.",
+                icon: "fa-anchor"
+            },
+            {
+                year: "2022",
+                title: "Growing Together",
+                content: "The year we adopted our pet! That video call when you first saw her - your face lit up like a Christmas tree. She became our connection when you were away.",
+                icon: "fa-paw"
+            },
+            {
+                year: "2023",
+                title: "Growing Together",
+                content: "The year we adopted our pet! That video call when you first saw her - your face lit up like a Christmas tree. She became our connection when you were away.",
+                icon: "fa-paw"
+            },
+            {
+                year: "2024",
+                title: "Growing Together",
+                content: "The year we adopted our pet! That video call when you first saw her - your face lit up like a Christmas tree. She became our connection when you were away.",
+                icon: "fa-paw"
+            },
+            {
+                year: "Present",
+                title: "Growing Together",
+                content: "The year we adopted our pet! That video call when you first saw her - your face lit up like a Christmas tree. She became our connection when you were away.",
+                icon: "fa-paw"
+            },
+            // Add more years as needed
+        ];
+
+        // Mobile timeline navigation
+        let currentMobileIndex = 0;
+        const currentYearEl = document.getElementById('currentYear');
+        const storyTitleEl = document.getElementById('storyTitle');
+        const storyContentEl = document.getElementById('storyContent');
+        const storyIconEl = document.getElementById('storyIcon');
+        const prevYearBtn = document.getElementById('prevYear');
+        const nextYearBtn = document.getElementById('nextYear');
+
+        function updateMobileTimeline() {
+            const current = mobileTimeline[currentMobileIndex];
+            currentYearEl.textContent = current.year;
+            storyTitleEl.textContent = current.title;
+            storyContentEl.textContent = current.content;
+            storyIconEl.className = `fas ${current.icon} text-white text-2xl`;
+            
+            // Update button states
+            prevYearBtn.disabled = currentMobileIndex === 0;
+            nextYearBtn.disabled = currentMobileIndex === mobileTimeline.length - 1;
+        }
+
+        // Event listeners for mobile
+        prevYearBtn.addEventListener('click', () => {
+            if (currentMobileIndex > 0) {
+                currentMobileIndex--;
+                updateMobileTimeline();
+            }
+        });
+
+        nextYearBtn.addEventListener('click', () => {
+            if (currentMobileIndex < mobileTimeline.length - 1) {
+                currentMobileIndex++;
+                updateMobileTimeline();
+            }
+        });
+
+        // Initialize mobile timeline
+        updateMobileTimeline();
+        </script>
+        <script>
+            // Add this just once per page
+            document.addEventListener('click', function(e) {
+              if(e.target.closest('.permanent-heart-btn')) {
+                const btn = e.target.closest('.permanent-heart-btn');
+                
+                // Mark as clicked permanently
+                btn.classList.add('clicked');
+                
+                // Create floating heart
+                const heart = document.createElement('div');
+                heart.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+                
+                const rect = btn.getBoundingClientRect();
+                Object.assign(heart.style, {
+                  position: 'fixed',
+                  left: `${rect.left + rect.width/2}px`,
+                  top: `${rect.top}px`,
+                  zIndex: '1000',
+                  pointerEvents: 'none',
+                  transform: 'translate(-50%, -50%)',
+                  '--random-x': `${(Math.random() - 0.5) * 100}px`,
+                  animation: `floatUp ${Math.random() * 3 + 2}s ease-out forwards`
+                });
+                
+                heart.querySelector('svg').style.cssText = `
+                  width: ${Math.random() * 20 + 10}px;
+                  height: ${Math.random() * 20 + 10}px;
+                  fill: #ef4444;
+                `;
+                
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 5000);
+              }
+            });
+            </script>
+</body>
+</html>

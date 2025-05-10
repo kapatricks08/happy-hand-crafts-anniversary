@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Special Anniversary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-image: url('image-asset/image1.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Arial', sans-serif;
+        }
+        .password-screen {
+            background: rgba(0, 0, 0, 0.5); /* Dark semi-transparent background */
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .password-box {
+            background: rgba(0, 0, 0, 0.7); /* Slightly transparent background */
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .heart-container i {
+            animation: heartBeat 1s ease infinite;
+        }
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .typing-effect::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .glitter {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%);
+            animation: twinkle 3s infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+         /* Make the container and button transparent */
+     /* Transparent background and inner content */
+    .bg-gradient-to-br {
+        background: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+        border: 1px solid rgba(255, 255, 255, 0.2); /* Light transparent border */
+    }
+    
+    .text-blue-200 {
+        color: rgba(255, 255, 255, 0.8); /* Lighter text with slight transparency */
+    }
+
+    /* Optional: Add transparency to the heart icon */
+    .heart-container i {
+        opacity: 0.8; /* Slightly transparent heart */
+    }
+
+    /* Transparent button with better opacity */
+    .bg-pink-600 {
+        background-color: rgba(236, 72, 153, 0.8); /* Semi-transparent pink background */
+    }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Password Protection Screen -->
+    <div id="passwordScreen" class="password-screen z-50">
+        <div class="password-box relative">
+            <div class="absolute inset-0 overflow-hidden">
+                <div class="glitter"></div>
+            </div>
+            
+            <div class="relative z-10">
+                <div class="heart-container mb-6">
+                    <i class="fas fa-heart text-pink-500 text-6xl heart-beat"></i>
+                </div>
+                
+                <h1 class="text-3xl font-bold text-pink-300 mb-2 cursive">Our Secret Code</h1>
+                <p class="text-blue-200 mb-6">Enter our special call sign to continue</p>
+                
+                <div class="relative mb-4">
+                    <input type="password" id="passwordInput" class="w-full px-4 py-3 rounded-lg bg-blue-900 bg-opacity-60 text-white border-2 border-blue-700 focus:border-pink-500 focus:outline-none transition-all placeholder-blue-400" placeholder="What is our call sign?">
+                </div>
+                
+                <button id="submitBtn" class="bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-full transition duration-300 transform hover:scale-105 flex items-center justify-center mx-auto shadow-lg">
+                    <i class="fas fa-heart mr-2"></i> Unlock Our Memories
+                </button>
+                
+                <div id="errorMessage" class="mt-4 text-pink-300 font-medium hidden shake"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Password Configuration
+        const CORRECT_PASSWORD = "bebu"; // Change this to your special word
+        const passwordScreen = document.getElementById('passwordScreen');
+        const passwordInput = document.getElementById('passwordInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Create glitter effect
+        function createGlitter() {
+            const container = document.querySelector('.glitter');
+            for (let i = 0; i < 30; i++) {
+                const glitter = document.createElement('div');
+                glitter.className = 'glitter';
+                glitter.style.left = Math.random() * 100 + '%';
+                glitter.style.top = Math.random() * 100 + '%';
+                glitter.style.animation = `twinkle ${Math.random() * 3 + 2}s infinite ${Math.random() * 2}s`;
+                container.appendChild(glitter);
+            }
+        }
+
+        // Submit password
+        submitBtn.addEventListener('click', checkPassword);
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        function checkPassword() {
+            const userInput = passwordInput.value.trim().toLowerCase();
+            
+            if (userInput === CORRECT_PASSWORD) {
+                // Correct password - show thank you modal
+                showThankYouModal();
+            } else {
+                // Wrong password
+                errorMessage.textContent = userInput 
+                    ? `Sino si "${userInput}"? 😠` 
+                    : "Please enter our call sign! ❤️";
+                errorMessage.classList.remove('hidden');
+                errorMessage.classList.add('shake');
+                
+                passwordInput.classList.add('border-pink-500');
+                setTimeout(() => {
+                    passwordInput.classList.remove('border-pink-500');
+                    errorMessage.classList.remove('shake');
+                }, 500);
+                
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }
+
+        function showThankYouModal() {
+            // Create modal
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50';
+            modal.innerHTML = `
+            <div class="rounded-xl p-8 max-w-md w-full mx-4 text-center shadow-2xl relative overflow-hidden border border-blue-600" style="background: rgba(0, 0, 50, 0.6); backdrop-filter: blur(8px);">
+
+
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="glitter"></div>
+    </div>
+    
+    <div class="relative z-10">
+        <div class="heart-container mb-6">
+            <i class="fas fa-heart text-pink-500 text-6xl animate-pulse"></i>
+        </div>
+        
+        <h2 class="text-2xl font-bold text-pink-300 mb-6 cursive">Hi Bebu,</h2>
+        
+        <div id="typingText" class="text-blue-200 text-left min-h-32 mb-6 typing-effect"></div>
+        
+        <button id="continueBtn" class="bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-full transition duration-300 transform hover:scale-105 flex items-center justify-center mx-auto shadow-lg opacity-80">
+            <i class="fas fa-arrow-right mr-2"></i> Continue
+        </button>
+    </div>
+</div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Thank you message (continuous text)
+            const fullMessage = "This is just a simple gift, but it comes from the deepest part of my heart. " +
+                    "I poured my love and sincerity into it, hoping it brings a smile to your face. " +
+                    "I may not always have the fanciest things to give, but I promise you—every little thing I offer will always come with all the love I have for you. " +
+                    "I hope you like it.";
+
+
+            const typingText = modal.querySelector('#typingText');
+            const continueBtn = modal.querySelector('#continueBtn');
+            
+            let currentChar = 0;
+            const typingSpeed = 30; // Adjust typing speed here
+            
+            function typeWriter() {
+                if (currentChar < fullMessage.length) {
+                    typingText.textContent = fullMessage.substring(0, currentChar + 1);
+                    currentChar++;
+                    setTimeout(typeWriter, typingSpeed);
+                } else {
+                    // Show continue button when typing completes
+                    continueBtn.classList.remove('opacity-0');
+                }
+            }
+            
+            // Start typing effect
+            setTimeout(typeWriter, 500);
+            
+            // Continue button - redirect to happy-hand-crafts.html
+            continueBtn.addEventListener('click', () => {
+                window.location.href = 'happy-hand-crafts.html';
+            });
+            
+            // Create glitter for modal
+            const modalContainer = modal.querySelector('.glitter');
+            for (let i = 0; i < 30; i++) {
+                const glitter = document.createElement('div');
+                glitter.className = 'glitter';
+                glitter.style.left = Math.random() * 100 + '%';
+                glitter.style.top = Math.random() * 100 + '%';
+                glitter.style.animation = `twinkle ${Math.random() * 3 + 2}s infinite ${Math.random() * 2}s`;
+                modalContainer.appendChild(glitter);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createGlitter();
+            passwordInput.focus();
+        });
+    </script>
+</body>
+</html>
